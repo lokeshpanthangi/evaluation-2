@@ -1,21 +1,18 @@
-from fastapi import FastAPI,Depends,HTTPException
-from models import User,Transaction,Base
-from schemas import User as UserSchema, Transaction as TransactionSchema
-from database import engine, SessionLocal,get_db
-from sqlalchemy.orm import Session
-from routes import router
+from fastapi import FastAPI
+from models import Base
+from database import engine
+from wallet import wallet_router
+from user import user_router
+from transactions import transaction_router
+
 Base.metadata.create_all(bind=engine)
 
 
 
 
 app = FastAPI()
-app.include_router(router)
+app.include_router(user_router)
 
+app.include_router(wallet_router)
 
-
-
-
-@app.get("/health")
-def health_check():
-    return {"status": "healthy"}
+app.include_router(transaction_router)

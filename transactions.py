@@ -1,7 +1,6 @@
 from fastapi import APIRouter,Depends,HTTPException
 from database import get_db
 from sqlalchemy.orm import Session
-from schemas import User as UserSchema,UpdateUser,Transaction as TransactionSchema
 from models import User,Transaction
 from datetime import datetime
 
