@@ -12,7 +12,12 @@ transaction_router = APIRouter()
 @transaction_router.get("/get_user_transactions/{user_id}")
 def get_user_transactions(user_id: int, db: Session = Depends(get_db)):
     transactions = db.query(Transaction).filter(Transaction.user_id == user_id).all()
-    return transactions
+    return {
+        "transactions": transactions,
+        "total": len(transactions),
+        "page": len(transactions) // 10 + 1,
+        "limit": 10
+    }
 
 @transaction_router.get("/get_transaction_data/{transaction_id}")
 def get_transaction_data(transaction_id: int, db: Session = Depends(get_db)):

@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from models import Base
 from database import engine
-from wallet import wallet_router
-from user import user_router
-from transactions import transaction_router
+from routers.user import user_router
+from routers.transactions import transaction_router
+from routers.wallet import wallet_router
 
 Base.metadata.create_all(bind=engine)
 
