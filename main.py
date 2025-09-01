@@ -1,14 +1,17 @@
-from fastapi import FastAPI
-from models import User,Transaction
-from schemas import User as userdata, Transaction as transactiondata
-from database import Base, engine   
-from sqlalchemy.orm import Session  
-
+from fastapi import FastAPI,Depends,HTTPException
+from models import User,Transaction,Base
+from schemas import User as UserSchema, Transaction as TransactionSchema
+from database import engine, SessionLocal,get_db
+from sqlalchemy.orm import Session
+from routes import router
 Base.metadata.create_all(bind=engine)
 
 
 
+
 app = FastAPI()
+app.include_router(router)
+
 
 
 
